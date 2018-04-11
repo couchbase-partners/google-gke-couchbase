@@ -4,9 +4,7 @@ This is a walkthrough of setting the [Couchbase Operator](https://blog.couchbase
 
 ## Setup glcoud CLI
 
-You will need a GCP account.
-
-We also need to install glcoud.  Instructions for installing the Google Cloud SDK that includes gcloud are [here](https://cloud.google.com/sdk/).
+You will need a GCP account.  We also need to install glcoud.  Instructions for installing the Google Cloud SDK that includes gcloud are [here](https://cloud.google.com/sdk/).
 
 To set up your Google environment, run the command:
 
@@ -28,6 +26,8 @@ Now that we have a cluster, the next step is to install and set up kubectl up so
 That should show three nodes:
 
 ![getnodes](/images/getnodes.png)
+
+GKE includes sophisticated RBAC to limit permissions.  The Operator creates resources in your cluster.  We'll need to grant it permissions to do so.
 
     kubectl create clusterrolebinding cluster-admin-binding \
       --clusterrole cluster-admin \
