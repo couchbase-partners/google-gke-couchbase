@@ -6,7 +6,7 @@ This is a walkthrough of setting the [Couchbase Operator](https://blog.couchbase
 
 You will need a GCP account.  We also need to install glcoud.  Instructions for installing the Google Cloud SDK that includes gcloud are [here](https://cloud.google.com/sdk/).
 
-To set up your Google environment, run the command (be sure to select a default region):
+To set up your Google environment, run the command:
 
     gcloud init
 
@@ -59,7 +59,7 @@ We're there!  Time to get a live cluster.  Run this:
 
 That should give this:
 
-![couchbasecreated](/images/GKE_Cluster_creation.png)
+![couchbasecreated](/images/GKE_cluster_creation.png)
 
 You can view the Couchbase and operator pods by running:
 
