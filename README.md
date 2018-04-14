@@ -6,7 +6,7 @@ This is a walkthrough of setting the [Couchbase Operator](https://blog.couchbase
 
 You will need a GCP account.  We also need to install glcoud.  Instructions for installing the Google Cloud SDK that includes gcloud are [here](https://cloud.google.com/sdk/).
 
-To set up your Google environment, run the command:
+To set up your Google environment, run the command (be sure to choose a default region):
 
     gcloud init
 
