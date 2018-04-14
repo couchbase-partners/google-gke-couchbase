@@ -6,7 +6,7 @@ This is a walkthrough of setting the [Couchbase Operator](https://blog.couchbase
 
 You will need a GCP account.  We also need to install glcoud.  Instructions for installing the Google Cloud SDK that includes gcloud are [here](https://cloud.google.com/sdk/).
 
-To set up your Google environment, run the command:
+To set up your Google environment, run the command (be sure to select a default region):
 
     gcloud init
 
@@ -25,7 +25,7 @@ Now that we have a cluster, the next step is to install and set up kubectl up so
 
 That should show three nodes:
 
-![getnodes](/images/getnodes.png)
+![getnodes](/images/GKE_getnodes.png)
 
 GKE includes sophisticated RBAC to limit permissions.  The Operator creates resources in your cluster.  We'll need to grant it permissions to do so.
 
@@ -48,7 +48,7 @@ To create the deployment and check it deployed, run this:
 
 You should see something like this:
 
-![operatordeployed](/images/operatordeployed.png)
+![operatordeployed](/images/GKE_operator-get_deployments.png)
 
 ## Deploying a Couchbase Cluster
 
@@ -59,7 +59,7 @@ We're there!  Time to get a live cluster.  Run this:
 
 That should give this:
 
-![couchbasecreated](/images/couchbasecreated.png)
+![couchbasecreated](/images/GKE_Cluster_creation.png)
 
 You can view the Couchbase and operator pods by running:
 
@@ -73,12 +73,12 @@ You've now got a cluster.  But to use it you probably want to set up port forwar
 
 Leave that command running:
 
-![portforward](/images/portforward.png)
+![portforward](/images/GKE_port_forward.png)
 
 Now open up a browser to http://localhost:8091
 
-![loginscreen](/images/loginscreen.png)
+![loginscreen](/images/GKE_loginscreen.png)
 
 The username is `Administrator` and password is `password`.  And now you're in!
 
-![webui](/images/webui.png)
+![webui](/images/GKE_webui.png)
