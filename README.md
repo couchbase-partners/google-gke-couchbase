@@ -59,7 +59,7 @@ We're there!  Time to get a live cluster.  Run this:
 
 That should give this:
 
-![couchbasecreated](/images/GKE_cluster_creation.png)
+![couchbasecreated](/images/GKE_cluster_created.png)
 
 You can view the Couchbase and operator pods by running:
 
