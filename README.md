@@ -48,7 +48,7 @@ To create the deployment and check it deployed, run this:
 
 You should see something like this:
 
-![operatordeployed](/images/GKE_operator-get_deployments.png)
+![operatordeployed](/images/GKE_operator_get_deployments.png)
 
 ## Deploying a Couchbase Cluster
 
