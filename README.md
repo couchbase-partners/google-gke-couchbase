@@ -1,33 +1,40 @@
 # google-gke-couchbase
 
-This is a walkthrough of setting the [Couchbase Operator](https://blog.couchbase.com/introducing-couchbase-operator/) up on [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/).
+This walkthrough will illustrate how simple it is to setup and manage Couchbase clusters using the [Couchbase Operator](https://blog.couchbase.com/introducing-couchbase-operator/) within the [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/) on the [Google Cloud Platform (GCP)](https://cloud.google.com/sdk/). 
 
-## Setup glcoud CLI
+## Install and Setup the gcloud CLI
 
-You will need a GCP account.  We also need to install glcoud.  Instructions for installing the Google Cloud SDK that includes gcloud are [here](https://cloud.google.com/sdk/).
+We will need a [(GCP)](https://cloud.google.com/sdk/) account and then we will [install glcoud](https://cloud.google.com/sdk/).
 
-To set up your Google environment, run the command (be sure to choose a default region):
+## Setup your GCP Environment
+We setup our environment with a single command (be sure to choose a default region):
 
     gcloud init
 
 ## Deploy a GKE Cluster
+Creating a cluster is straightfoward, using the command:
 
     gcloud container clusters create mycluster --machine-type=n1-standard-4    
 
-## Configure kubectl
+## Install and Setup kubectl
 
-Now that we have a cluster, the next step is to install and set up kubectl up so it can connect to the cluster.
+With our GKE cluster created we have to install and set up kubectl, up so it can connect to the cluster. Two commands will do that for us:
 
     gcloud components install kubectl
     gcloud container clusters get-credentials mycluster
 
+![getcredentials](/images/GKE_get_credentials.png)
+
+We verify our kubectl with:
+
     kubectl get nodes
 
-That should show three nodes:
+We should see three nodes:
 
 ![getnodes](/images/GKE_getnodes.png)
 
-GKE includes sophisticated RBAC to limit permissions.  The Operator creates resources in your cluster.  We'll need to grant it permissions to do so.
+## Setup GKE Role-based Access Control (RBAC)
+GKE supports a sophisticated RBAC in order to limit permissions.  The Couchbase Operator creates resources in our cluster, so  we will need to grant it the permission to do so:
 
     kubectl create clusterrolebinding cluster-admin-binding \
       --clusterrole cluster-admin \
@@ -37,48 +44,54 @@ GKE includes sophisticated RBAC to limit permissions.  The Operator creates reso
       --clusterrole=cluster-admin \
       --serviceaccount=default:default
 
-## Deploying the Operator
+## Deploying the Couchbase Operator
 
-Once you have an GKE cluster deployed and a running kubectl, you're ready to deploy the Operator.  The documentation on that is [here](http://docs.couchbase.com/prerelease/couchbase-operator/beta/overview.html).
+Now that we have all the environment prerequisites in place, we are ready to deploy the Couchbase Operator.
 
-To create the deployment and check it deployed, run this:
+We deploy the Couchbase Operator and then verify it with the following commands:
 
     kubectl create -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/operator.yaml
     kubectl get deployments
 
-You should see something like this:
+We can now see that the Couchbase Operator is deployed.
 
 ![operatordeployed](/images/GKE_operator_get_deployments.png)
 
 ## Deploying a Couchbase Cluster
 
-We're there!  Time to get a live cluster.  Run this:
+We are now in the final stretch! Next we will create a Couchbase cluster with the following commands:
 
     kubectl create -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/secret.yaml
     kubectl create -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/couchbase-cluster.yaml
 
-That should give this:
+We should see something like this:
 
 ![couchbasecreated](/images/GKE_cluster_created.png)
 
-You can view the Couchbase and operator pods by running:
+We can view the all of the pods by running:
 
     kubectl get pods
 
+![getpods](/images/GKE_get_pods.png)
+
 ## Accessing the Couchbase Web UI
 
-You've now got a cluster.  But to use it you probably want to set up port forwarding.  To do that run:
+Now we have a Couchbase cluster running!
+To use the web console we will need setup port forwarding.  We do that with the kubectl command:
 
-    kubectl port-forward cb-example-0000 8091:8091
+    kubectl port-forward cb-example-0000 8091:809e
 
-Leave that command running:
+(Make sure to leave the command running in the terminal):
 
 ![portforward](/images/GKE_port_forward.png)
 
-Now open up a browser to http://localhost:8091
+Now we open up a browser to http://localhost:8091
 
 ![loginscreen](/images/GKE_loginscreen.png)
 
-The username is `Administrator` and password is `password`.  And now you're in!
+We will login using username=`Administrator` and password=`password`.  
+We are in! Click the 'Servers' link on the left side and we should see our clusters running.
 
 ![webui](/images/GKE_webui.png)
+
+Fin
