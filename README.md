@@ -52,7 +52,7 @@ Now that we have all the environment prerequisites in place, we are ready to dep
 
 We deploy the Couchbase Operator and then verify it with the following commands:
 
-    kubectl create -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/operator.yaml
+    kubectl apply -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/operator.yaml
     kubectl get deployments
 
 We now can see that the Couchbase Operator is deployed.
@@ -65,8 +65,8 @@ We are now in the final stretch!
 
 Next we will create a Couchbase cluster with the following commands:
 
-    kubectl create -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/secret.yaml
-    kubectl create -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/couchbase-cluster.yaml
+    kubectl apply -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/secret.yaml
+    kubectl apply -f https://s3.amazonaws.com/packages.couchbase.com/kubernetes/beta/couchbase-cluster.yaml
 
 We should be able to see something like this:
 
@@ -85,7 +85,7 @@ To use the web console we will need setup port forwarding.
 
 We do that with the kubectl command:
 
-    kubectl port-forward cb-example-0000 8091:809e
+    kubectl port-forward cb-example-0000 8091:8091
 
 We need to make sure we leave the command running in the terminal:
 
